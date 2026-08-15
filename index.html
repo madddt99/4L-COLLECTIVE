@@ -1433,4 +1433,91 @@
             
             <div class="upcoming-item">
                 <div class="date">SOON</div>
-                <div class="event-info">WAD3 TYARA</di
+                <div class="event-info">WAD3 TYARA</div>
+                <a href="#" class="event-action">Notify Me</a>
+            </div>
+
+            <div class="upcoming-item">
+                <div class="date">SOON</div>
+                <div class="event-info">1000 LA BA2S</div>
+                <a href="#" class="event-action">Notify Me</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-header">LET'S MAKE NOISE</h2>
+        <div class="contact-content">
+            <p style="margin-bottom: 20px; color: #aaa; font-size: 1.2rem;">For bookings, collaborations, and press:</p>
+            <a href="mailto:mgmt@4larchivezz.com" class="email-link">mgmt@4larchivezz.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 <a href="https://www.instagram.com/4larchivezz?igsh=ZmZ6b3RzZ3U3MXc0" target="_blank">4Larchivezz</a>. 4L Records. All rights reserved.
+    </footer>
+
+    <!-- JavaScript for Modals & Scroll-To-Top -->
+    <script>
+        // Modal Logic
+        const openBtns = document.querySelectorAll('.btn-open-modal');
+        const closeBtns = document.querySelectorAll('.close-btn');
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const targetModalId = btn.getAttribute('data-target');
+                const modalToOpen = document.getElementById(targetModalId);
+                
+                if (modalToOpen) {
+                    modalToOpen.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    if (!document.querySelector('.modal.show')) {
+                        document.body.style.overflow = 'auto';
+                    }
+                }
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+                if (!document.querySelector('.modal.show')) {
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</body>
+</html>
