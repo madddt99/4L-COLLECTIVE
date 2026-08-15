@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>4Larchivezz</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-color:#050505;
+      --text-color:#f4f4f4;
+      --accent-color:#777;
+      --highlight:#ffffff;
+      --spotify-green:#1DB954;
+      --transition: 0.24s ease;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Space Grotesk',sans-serif;
+      background:var(--bg-color);
+      color:var(--text-color);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Skip link */
+    .skip-link{
+      position:fixed;
+      top:8px;
+      left:8px;
+      background:#111;
+      color:var(--highlight);
+      padding:8px 12px;
+      z-index:2001;
+      border-radius:6px;
+      transform:translateY(-120%);
+      transition:transform .18s ease;
+    }
+    .skip-link:focus{transform:translateY(0);outline:3px solid #fff}
+
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      padding:20px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(5,5,5,0.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid #222;
+      z-index:1000;
+    }
+    .logo{font-size:1.5rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+    .nav-links{list-style:none;display:flex;gap:30px}
+    .nav-links a{color:var(--accent-color);text-decoration:none;font-size:.9rem;text-transform:uppercase;letter-spacing:1px;transition:color var(--transition)}
+    .nav-links a:hover,.nav-links a:focus{color:var(--highlight);outline:none}
+
+    /* Hero */
+    #home{
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      position:relative;
+      padding-top:80px;
+    }
+    .hero-title{
+      font-size:clamp(48px,15vw,220px);
+      font-weight:700;
+      line-height:1;
+      letter-spacing:-2px;
+      margin-bottom:20px;
+    }
+    .members{font-size:1.2rem;letter-spacing:5px;color:var(--accent-color);text-transform:uppercase}
+    .members span{color:var(--highlight);font-weight:700}
+
+    main{margin-top:0}
+    section{padding:100px 40px;max-width:1200px;margin:0 auto;border-bottom:1px solid #111}
+    .section-header{font-size:3rem;margin-bottom:40px;text-transform:uppercase;letter-spacing:2px}
+
+    .its-us-content{max-width:900px}
+    .manifesto-text{font-size:2rem;line-height:1.4;color:#ccc;font-weight:300}
+    .manifesto-text strong{color:var(--highlight);font-weight:700}
+    .its-us-img{width:100%;max-width:600px;margin-top:24px;border:1px solid #222;display:block;border-radius:6px}
+
+    .releases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px}
+    .release-item{
+      cursor:pointer;
+      transition:transform var(--transition);
+      outline:none;
+      border-radius:6px;
+    }
+    .release-item:hover{transform:translateY(-5px)}
+    .release-item:focus{box-shadow:0 0 0 3px rgba(255,255,255,0.08); transform:translateY(-3px)}
+    .cover-art-img{width:100%;aspect-ratio:1/1;object-fit:cover;border:1px solid #222;background:#111;display:block}
+    .release-info{margin-top:20px}
+    .release-title{font-size:1.5rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+    .release-meta{font-size:.9rem;color:var(--accent-color);text-transform:uppercase;letter-spacing:2px}
+
+    .modal{
+      display:none;
+      position:fixed;
+      z-index:2000;
+      left:0;top:0;width:100%;height:100%;
+      background-color:rgba(0,0,0,0.85);
+      backdrop-filter:blur(8px);
+      opacity:0;
+      transition:opacity .3s ease;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal.show{display:flex;opacity:1}
+    .modal[aria-hidden="true"]{display:none;opacity:0}
+    .modal-content{
+      background:#0a0a0a;padding:40px;max-width:1000px;width:90%;max-height:85vh;overflow-y:auto;border:1px solid #222;position:relative;border-radius:8px;
+    }
+    .modal-content::-webkit-scrollbar{width:8px}
+    .modal-content::-webkit-scrollbar-thumb{background:#333;border-radius:10px}
+
+    .close-btn{
+      position:absolute;top:15px;right:25px;font-size:2.2rem;font-weight:300;color:#bbb;background:transparent;border:0;cursor:pointer;padding:4px;border-radius:6px;
+    }
+    .close-btn:hover,.close-btn:focus{color:#fff;outline:3px solid rgba(255,255,255,0.06)}
+
+    .modal-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:flex-start}
+    .modal-img{width:100%;aspect-ratio:1/1;object-fit:cover;border:1px solid #222;position:sticky;top:0;border-radius:4px}
+    .modal-text-content h3{font-size:2.5rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+    .modal-sub{color:var(--accent-color);text-transform:uppercase;letter-spacing:2px;font-size:.9rem;margin-bottom:25px}
+    .modal-text-content p{color:#ccc;font-size:1.1rem;margin-bottom:20px}
+    .modal-text-content ul{color:#ccc;font-size:1.1rem;margin-left:20px;list-style:square}
+
+    .tracklist{display:flex;flex-direction:column;gap:15px;margin-top:20px;border-top:1px solid #222;padding-top:20px}
+    .track{border-bottom:1px solid #1a1a1a;padding-bottom:12px}
+    .track-title{font-size:1.2rem;font-weight:700;color:var(--highlight);text-transform:uppercase}
+    .track-details{font-size:.85rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+    .listen-link{display:inline-block;margin-top:10px;color:var(--bg-color);background:var(--spotify-green);text-decoration:none;font-weight:700;font-size:.9rem;text-transform:uppercase;padding:10px 25px;border-radius:50px;transition:opacity var(--transition)}
+    .listen-link:hover{opacity:.9}
+
+    .upcoming-list{display:flex;flex-direction:column;gap:20px}
+    .upcoming-item{display:flex;justify-content:space-between;align-items:center;padding:25px 0;border-bottom:1px solid #222;transition:padding var(--transition),background var(--transition)}
+    .upcoming-item:hover{padding-left:20px;padding-right:20px;background:#111}
+    .date{font-size:1.2rem;font-weight:700;min-width:150px}
+    .event-info{flex-grow:1;font-size:1.5rem;text-transform:uppercase}
+    .event-action{font-size:.9rem;text-transform:uppercase;text-decoration:none;color:var(--bg-color);background:var(--text-color);padding:10px 20px;border-radius:50px;transition:all var(--transition)}
+    .event-action:hover{background:#aaa}
+
+    .contact-content{text-align:center;padding:50px 0}
+    .email-link{font-size:3rem;color:var(--highlight);text-decoration:none;border-bottom:2px solid var(--highlight);transition:color var(--transition),border-color var(--transition)}
+    .email-link:hover{color:var(--accent-color);border-color:var(--accent-color)}
+
+    footer{text-align:center;padding:40px;font-size:.8rem;color:var(--accent-color);text-transform:uppercase;letter-spacing:2px}
+
+    :focus{outline-offset:3px}
+    a:focus,button:focus{outline:3px solid rgba(255,255,255,0.08)}
+
+    @media (max-width:768px){
+      .nav-links{display:none}
+      .hero-title{letter-spacing:-1px}
+      .manifesto-text{font-size:1.4rem}
+      .modal-grid{grid-template-columns:1fr}
+      .modal-img{position:relative}
+      .modal-content{padding:30px 20px}
+      .upcoming-item{flex-direction:column;align-items:flex-start;gap:15px}
+      .email-link{font-size:1.5rem}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav role="navigation" aria-label="Primary navigation">
+    <div class="logo">4Larchivezz</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#its-us">4L</a></li>
+      <li><a href="#releases">Releases</a></li>
+      <li><a href="#upcoming">Upcoming</a></li>
+      <li><a href="#contact">Let's Make Noise</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home">
+    <h1 class="hero-title">4L</h1>
+    <div class="members"><span>TAQI</span> &nbsp;//&nbsp; <span>ZIEN</span> &nbsp;//&nbsp; <span>NMS</span></div>
+  </header>
+
+  <main id="main" aria-live="polite">
+    <!-- 4L Section -->
+    <section id="its-us">
+      <h2 class="section-header">4L</h2>
+      <div class="its-us-content">
+        <p class="manifesto-text">
+          <strong>4L PROJECT | COLLECTIVE</strong> is an Egyptian creative collective redefining the underground through music, visuals, and culture. Home to ZIEN, TAQI, NMS, 4L exists to create without limits—blending trap, rage, and experimental hip-hop into a distinct artistic universe. Every release is part of a larger vision, driven by collaboration, originality, and the pursuit of a lasting legacy.
+        </p>
+        <img src="images/4l-us.jpg" alt="4L collective image" class="its-us-img" loading="lazy" onerror="this.src='https://via.placeholder.com/1000x600/111/555?text=[+4L+IMG+]';">
+      </div>
+    </section>
+
+    <!-- Releases -->
+    <section id="releases">
+      <h2 class="section-header">Releases</h2>
+      <div class="releases-grid">
+
+        <!-- 4L Release -->
+        <div class="release-item" role="button" tabindex="0" aria-controls="modal-4l" data-target="modal-4l" aria-pressed="false">
+          <img src="images/4l-artwork.jpg" alt="4L Cover Art" class="cover-art-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+4L+ARTWORK+]';">
+          <div class="release-info">
+            <div class="release-title">4L</div>
+            <div class="release-meta">Single // 2023</div>
+          </div>
+        </div>
+
+        <!-- SYSTEM Release -->
+        <div class="release-item" role="button" tabindex="0" aria-controls="modal-system" data-target="modal-system" aria-pressed="false">
+          <img src="images/system-artwork.jpg" alt="SYSTEM Cover Art" class="cover-art-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+SYSTEM+ARTWORK+]';">
+          <div class="release-info">
+            <div class="release-title">SYSTEM</div>
+            <div class="release-meta">Album // 2024</div>
+          </div>
+        </div>
+
+        <!-- JESTER Release -->
+        <div class="release-item" role="button" tabindex="0" aria-controls="modal-jester" data-target="modal-jester" aria-pressed="false">
+          <img src="images/jester-artwork.jpg" alt="JESTER Cover Art" class="cover-art-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+JESTER+ARTWORK+]';">
+          <div class="release-info">
+            <div class="release-title">JESTER</div>
+            <div class="release-meta">EP // 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modals (accessible) -->
+
+    <div id="modal-4l" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-4l-title">
+      <div class="modal-content" role="document">
+        <button class="close-btn" aria-label="Close dialog">&times;</button>
+        <div class="modal-grid">
+          <img src="images/4l-artwork.jpg" alt="4L Cover Art" class="modal-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+4L+ARTWORK+]';">
+          <div class="modal-text-content">
+            <h3 id="modal-4l-title">4L</h3>
+            <div class="modal-sub">TAQI (feat. ZIEN4L) // 2023</div>
+            <p>“4L” by TAQI (feat. ZIEN4L) is a statement of loyalty, ambition, and identity. The title, “4L” (“For Life”), represents an unbreakable commitment to the crew and the lifestyle they’ve built together. The song blends confident verses about chasing success, overcoming obstacles, and staying true to the people who have been there from the start. It carries a determined, motivational tone while making it clear that loyalty comes before everything else.</p>
+            <p style="color: var(--highlight); font-weight: 700; margin-top: 15px;">In short, the song is about:</p>
+            <ul>
+              <li>Loyalty to the team and the “4L” family.</li>
+              <li>Staying committed through success and hardship.</li>
+              <li>Building a legacy through hard work and ambition.</li>
+              <li>Moving forward together while ignoring doubt and negativity.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-system" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-system-title">
+      <div class="modal-content" role="document">
+        <button class="close-btn" aria-label="Close dialog">&times;</button>
+        <div class="modal-grid">
+          <img src="images/system-artwork.jpg" alt="SYSTEM Cover Art" class="modal-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+SYSTEM+ARTWORK+]';">
+          <div class="modal-text-content">
+            <h3 id="modal-system-title">SYSTEM</h3>
+            <div class="modal-sub">ZIEN4L // Debut Album // 2024</div>
+            <p><strong>SYSTEM</strong> is the highly anticipated debut album by <strong>ZIEN4L</strong>. Moving away from the collective umbrella to establish his own distinct artistic universe, ZIEN4L pieces together intense vocal performances with intricate, hard-hitting production. It's a dark, experimental, and undeniable standalone project.</p>
+            <a href="https://open.spotify.com/album/374cEnOKQlAZizJJbK07PF" target="_blank" rel="noopener noreferrer" class="listen-link">Listen on Spotify</a>
+
+            <h4 style="margin-top:30px;font-size:1.5rem;text-transform:uppercase;color:var(--highlight);">Tracklist</h4>
+            <div class="tracklist">
+              <div class="track"><div class="track-title">1. SYSTEM !NTRO</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">2. C!T⅄</div><div class="track-details">Artist: ZIEN4L (feat. ZIAD ZAZA) | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">3. D!SCO</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz / kaambeats.1 | Released: 2024</div></div>
+              <div class="track"><div class="track-title">4. VUM VUM</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">5. PAʎ DAʎ</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">6. R!NGTONE</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">7. K!SS</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">8. 3 TALQAT</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+              <div class="track"><div class="track-title">9. (10%) OUTRO</div><div class="track-details">Artist: ZIEN4L | Prod: le.zuz | Released: 2024</div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-jester" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-jester-title">
+      <div class="modal-content" role="document">
+        <button class="close-btn" aria-label="Close dialog">&times;</button>
+        <div class="modal-grid">
+          <img src="images/jester-artwork.jpg" alt="JESTER Cover Art" class="modal-img" loading="lazy" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+JESTER+ARTWORK+]';">
+          <div class="modal-text-content">
+            <h3 id="modal-jester-title">JESTER</h3>
+            <div class="modal-sub">TAQI // EP // 2026</div>
+            <p>An intricate audio experience helmed entirely by <strong>TAQI</strong> and fully produced by <strong>NMS 4L</strong>. The JESTER EP takes a deep dive into experimental boundaries, showcasing razor-sharp verses and heavy, hypnotic production from front to back.</p>
+            <a href="https://open.spotify.com/album/4qRByEGL79ta7zVMvRvkqL" target="_blank" rel="noopener noreferrer" class="listen-link">Listen on Spotify</a>
+
+            <h4 style="margin-top:30px;font-size:1.5rem;text-transform:uppercase;color:var(--highlight);">Tracklist</h4>
+            <div class="tracklist">
+              <div class="track"><div class="track-title">1. MZH24 MN L NSWAN</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div></div>
+              <div class="track"><div class="track-title">2. KO$yAGY</div><div class="track-details">Artist: TAQI (feat. ZEYAMAL) | Prod: NMS 4L | Released: 2026</div></div>
+              <div class="track"><div class="track-title">3. HAHA (ENSENI)</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div></div>
+              <div class="track"><div class="track-title">4. JESTER</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div></div>
+              <div class="track"><div class="track-title">5. BIPOLAR</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming -->
+    <section id="upcoming">
+      <h2 class="section-header">Upcoming</h2>
+      <div class="upcoming-list">
+        <div class="upcoming-item"><div class="date">SOON</div><div class="event-info">WAD3 TYARA</div><a href="#" class="event-action">Notify Me</a></div>
+        <div class="upcoming-item"><div class="date">SOON</div><div class="event-info">1000 LA BA2S</div><a href="#" class="event-action">Notify Me</a></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-header">LET'S MAKE NOISE</h2>
+      <div class="contact-content">
+        <p style="margin-bottom:20px;color:#aaa;font-size:1.2rem">For bookings, collaborations, and press:</p>
+        <a class="email-link" href="mailto:mgmt@4larchivezz.com">mgmt@4larchivezz.com</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>&copy; 2026 4Larchivezz. 4L Records. All rights reserved.</footer>
+
+  <script>
+    (function(){
+      const releaseItems = document.querySelectorAll('.release-item[data-target]');
+      const mainEl = document.getElementById('main');
+      let lastFocused = null;
+
+      function getFocusable(container){
+        const selectors = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        return Array.from(container.querySelectorAll(selectors)).filter(el => el.offsetParent !== null);
+      }
+
+      function openModal(modal){
+        if(!modal) return;
+        lastFocused = document.activeElement;
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden','false');
+        mainEl.setAttribute('aria-hidden','true');
+        document.body.style.overflow = 'hidden';
+        const focusables = getFocusable(modal);
+        if(focusables.length) focusables[0].focus();
+        document.addEventListener('keydown', onKeyDown);
+      }
+
+      function closeModal(modal){
+        if(!modal) return;
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden','true');
+        mainEl.removeAttribute('aria-hidden');
+        document.body.style.overflow = '';
+        if(lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+        document.removeEventListener('keydown', onKeyDown);
+      }
+
+      function onKeyDown(e){
+        if(e.key === 'Escape'){
+          const open = document.querySelector('.modal.show[aria-hidden="false"]');
+          if(open) closeModal(open);
+        } else if(e.key === 'Tab'){
+          const open = document.querySelector('.modal.show[aria-hidden="false"]');
+          if(!open) return;
+          const focusables = getFocusable(open);
+          if(focusables.length === 0){
+            e.preventDefault();
+            return;
+          }
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if(e.shiftKey && document.activeElement === first){
+            e.preventDefault();
+            last.focus();
+          } else if(!e.shiftKey && document.activeElement === last){
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
+      releaseItems.forEach(el => {
+        const targetId = el.getAttribute('data-target');
+        const modal = document.getElementById(targetId);
+
+        el.addEventListener('click', () => openModal(modal));
+
+        el.addEventListener('keydown', (ev) => {
+          if(ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar'){
+            ev.preventDefault();
+            openModal(modal);
+          }
+        });
+      });
+
+      document.querySelectorAll('.modal .close-btn').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+          const modal = ev.target.closest('.modal');
+          closeModal(modal);
+        });
+      });
+
+      window.addEventListener('click', (e) => {
+        if(e.target.classList.contains('modal')){
+          closeModal(e.target);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
