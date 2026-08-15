@@ -264,7 +264,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Nested Z-Indexes */
         .member-modal { z-index: 2000; }
         .release-modal { z-index: 2010; }
 
@@ -341,7 +340,7 @@
             margin-bottom: 15px;
         }
 
-        /* Social Portal Buttons */
+        /* Social Portal */
         .social-portal {
             display: flex;
             flex-wrap: wrap;
@@ -569,38 +568,16 @@
             text-decoration: none;
         }
 
-        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-title {
-                font-size: 25vw;
-                letter-spacing: -2px;
-            }
-            .manifesto-text {
-                font-size: 1.4rem;
-            }
-            .modal-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-img {
-                position: relative;
-            }
-            .modal-content {
-                padding: 30px 20px;
-            }
-            .upcoming-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .email-link {
-                font-size: 1.5rem;
-            }
-            .bg-swag {
-                font-size: 35vw;
-            }
+            .nav-links { display: none; }
+            .hero-title { font-size: 25vw; letter-spacing: -2px; }
+            .manifesto-text { font-size: 1.4rem; }
+            .modal-grid { grid-template-columns: 1fr; }
+            .modal-img { position: relative; }
+            .modal-content { padding: 30px 20px; }
+            .upcoming-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .email-link { font-size: 1.5rem; }
+            .bg-swag { font-size: 35vw; }
         }
     </style>
 </head>
@@ -646,7 +623,7 @@
             
             <!-- TAQI Card -->
             <div class="release-item btn-open-modal" data-target="modal-taqi">
-                <img src="taqi.jpg" alt="TAQI" class="cover-art-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+TAQI+]'">
+                <img src="taqi.jpg?v=2" alt="TAQI" class="cover-art-img">
                 <div class="release-info">
                     <div class="release-title">TAQI</div>
                     <div class="release-meta">Artist // 4L</div>
@@ -655,7 +632,7 @@
 
             <!-- ZIEN Card -->
             <div class="release-item btn-open-modal" data-target="modal-zien">
-                <img src="zien.jpg" alt="ZIEN" class="cover-art-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+ZIEN+]'">
+                <img src="zien.jpg?v=2" alt="ZIEN" class="cover-art-img">
                 <div class="release-info">
                     <div class="release-title">ZIEN</div>
                     <div class="release-meta">Artist // 4L</div>
@@ -664,7 +641,7 @@
 
             <!-- NMS Card -->
             <div class="release-item btn-open-modal" data-target="modal-nms">
-                <img src="nms.jpg" alt="NMS" class="cover-art-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+NMS+]'">
+                <img src="nms.jpg?v=2" alt="NMS" class="cover-art-img">
                 <div class="release-info">
                     <div class="release-title">NMS</div>
                     <div class="release-meta">Producer // 4L</div>
@@ -674,16 +651,12 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- LEVEL 1 MODALS (MEMBER PROFILES)           -->
-    <!-- ========================================== -->
-
     <!-- Modal: TAQI -->
     <div id="modal-taqi" class="modal member-modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="taqi.jpg" alt="TAQI" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+TAQI+]'">
+                <img src="taqi.jpg?v=2" alt="TAQI" class="modal-img">
                 <div class="modal-text-content">
                     <h3>TAQI</h3>
                     <div class="modal-sub">Vocalist // 4L Records</div>
@@ -701,12 +674,12 @@
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-jester">
-                            <img src="jester.jpg" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=JESTER'">
+                            <img src="jester.jpg?v=2" class="mini-cover">
                             <div class="mini-title">JESTER</div>
                             <div class="mini-meta">EP // 2026</div>
                         </div>
                         <div class="mini-release-item btn-open-modal" data-target="modal-4l">
-                            <img src="4l.jpg" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=4L'">
+                            <img src="4l.jpg?v=2" class="mini-cover">
                             <div class="mini-title">4L</div>
                             <div class="mini-meta">Single // 2023</div>
                         </div>
@@ -722,7 +695,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="zien.jpg" alt="ZIEN" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+ZIEN+]'">
+                <img src="zien.jpg?v=2" alt="ZIEN" class="modal-img">
                 <div class="modal-text-content">
                     <h3>ZIEN</h3>
                     <div class="modal-sub">Vocalist // 4L Records</div>
@@ -740,12 +713,12 @@
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-system">
-                            <img src="system.jpg" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=SYSTEM'">
+                            <img src="system.jpg?v=2" class="mini-cover">
                             <div class="mini-title">SYSTEM</div>
                             <div class="mini-meta">Album // 2024</div>
                         </div>
                         <div class="mini-release-item btn-open-modal" data-target="modal-4l">
-                            <img src="4l.jpg" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=4L'">
+                            <img src="4l.jpg?v=2" class="mini-cover">
                             <div class="mini-title">4L</div>
                             <div class="mini-meta">Single // 2023</div>
                         </div>
@@ -761,7 +734,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="nms.jpg" alt="NMS" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+NMS+]'">
+                <img src="nms.jpg?v=2" alt="NMS" class="modal-img">
                 <div class="modal-text-content">
                     <h3>NMS</h3>
                     <div class="modal-sub">Producer // 4L Records</div>
@@ -779,7 +752,7 @@
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-jester">
-                            <img src="jester.jpg" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=JESTER'">
+                            <img src="jester.jpg?v=2" class="mini-cover">
                             <div class="mini-title">JESTER (EP)</div>
                             <div class="mini-meta">Prod. NMS 4L</div>
                         </div>
@@ -799,7 +772,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="jester.jpg" alt="JESTER Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+JESTER+ARTWORK+]'">
+                <img src="jester.jpg?v=2" alt="JESTER Cover Art" class="modal-img">
                 <div class="modal-text-content">
                     <h3>JESTER</h3>
                     <div class="modal-sub">TAQI // EP // 2026</div>
@@ -841,7 +814,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="system.jpg" alt="SYSTEM Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+SYSTEM+ARTWORK+]'">
+                <img src="system.jpg?v=2" alt="SYSTEM Cover Art" class="modal-img">
                 <div class="modal-text-content">
                     <h3>SYSTEM</h3>
                     <div class="modal-sub">ZIEN4L // Debut Album // 2024</div>
@@ -872,7 +845,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="4l.jpg" alt="4L Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+4L+ARTWORK+]'">
+                <img src="4l.jpg?v=2" alt="4L Cover Art" class="modal-img">
                 <div class="modal-text-content">
                     <h3>4L</h3>
                     <div class="modal-sub">TAQI (feat. ZIEN4L) // 2023</div>
@@ -931,7 +904,6 @@
         const openBtns = document.querySelectorAll('.btn-open-modal');
         const closeBtns = document.querySelectorAll('.close-btn');
 
-        // Open Modal
         openBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -945,7 +917,6 @@
             });
         });
 
-        // Close specific Modal
         closeBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
@@ -958,7 +929,6 @@
             });
         });
 
-        // Close Modal by clicking outside of the content box
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 e.target.classList.remove('show');
