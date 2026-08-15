@@ -258,8 +258,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -327,7 +327,7 @@
         }
 
         .modal-text-content h3 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px;
@@ -389,15 +389,15 @@
 
         .modal-text-content p {
             color: #ccc;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 20px;
         }
 
         /* Mini Release Grid Inside Modals */
         .mini-releases-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
             margin-top: 15px;
         }
 
@@ -423,10 +423,13 @@
         }
 
         .mini-title {
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--highlight);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .mini-meta {
@@ -451,7 +454,7 @@
         }
 
         .track-title {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--highlight);
             text-transform: uppercase;
@@ -569,38 +572,102 @@
             text-decoration: none;
         }
 
-        /* Mobile Responsiveness */
+        /* ROTATING 4L LOGO (BOTTOM LEFT) */
+        .rotating-4l-badge {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 990;
+            pointer-events: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .rotating-4l-inner {
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -1px;
+            color: var(--highlight);
+            animation: spin4L 7s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin4L {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* BACK TO TOP ARROW BUTTON (BOTTOM RIGHT) */
+        #back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: rgba(15, 15, 15, 0.85);
+            border: 1px solid #333;
+            color: var(--highlight);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 990;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        #back-to-top svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease;
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            background: var(--highlight);
+            color: #000;
+            border-color: var(--highlight);
+            transform: translateY(-4px);
+        }
+
+        #back-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-title {
-                font-size: 25vw;
-                letter-spacing: -2px;
-            }
-            .manifesto-text {
-                font-size: 1.4rem;
-            }
-            .modal-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-img {
-                position: relative;
-            }
-            .modal-content {
-                padding: 30px 20px;
-            }
-            .upcoming-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .email-link {
-                font-size: 1.5rem;
-            }
-            .bg-swag {
-                font-size: 35vw;
-            }
+            .nav-links { display: none; }
+            .hero-title { font-size: 25vw; letter-spacing: -2px; }
+            .manifesto-text { font-size: 1.4rem; }
+            .modal-grid { grid-template-columns: 1fr; }
+            .modal-img { position: relative; }
+            .modal-content { padding: 30px 20px; }
+            .upcoming-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .email-link { font-size: 1.5rem; }
+            .bg-swag { font-size: 35vw; }
+            .rotating-4l-badge { width: 48px; height: 48px; bottom: 18px; left: 18px; }
+            .rotating-4l-inner { font-size: 0.95rem; }
+            #back-to-top { width: 44px; height: 44px; bottom: 18px; right: 18px; }
         }
     </style>
 </head>
@@ -608,6 +675,18 @@
 
     <!-- #SWAG 3D Chrome Background Element -->
     <div class="bg-swag" data-text="#SWAG">#SWAG</div>
+
+    <!-- Rotating 4L Logo (Bottom-Left) -->
+    <div class="rotating-4l-badge">
+        <div class="rotating-4l-inner">4L</div>
+    </div>
+
+    <!-- Back to Top Arrow Button (Bottom-Right) -->
+    <button id="back-to-top" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
     <!-- Navigation -->
     <nav>
@@ -697,7 +776,7 @@
                     
                     <p>TAQI brings a relentless energy and razor-sharp delivery to the collective. Helming intricate audio experiences like the <strong>JESTER EP</strong>, TAQI takes a deep dive into experimental boundaries, dropping heavy, hypnotic verses over signature 4L production.</p>
                     
-                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Discography & Projects</h4>
+                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Discography & Releases</h4>
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-jester">
@@ -709,6 +788,21 @@
                             <img src="4l.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=4L'">
                             <div class="mini-title">4L</div>
                             <div class="mini-meta">Single // 2023</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-fen-amwaly">
+                            <img src="taqi.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=FEN+AMWALY'">
+                            <div class="mini-title">FEN AMWALY</div>
+                            <div class="mini-meta">Single</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-nah">
+                            <img src="taqi.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=NAH'">
+                            <div class="mini-title">NAH</div>
+                            <div class="mini-meta">Single</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-gabi">
+                            <img src="taqi.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=GABI'">
+                            <div class="mini-title">GABI</div>
+                            <div class="mini-meta">Single</div>
                         </div>
                     </div>
 
@@ -736,13 +830,38 @@
                     
                     <p>Moving away from standard structures to establish his own distinct artistic universe, ZIEN4L pieces together intense vocal performances with intricate, hard-hitting flows. His highly anticipated project <strong>SYSTEM</strong> proved him as a dark, experimental, and undeniable standalone force in the underground.</p>
 
-                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Discography & Projects</h4>
+                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Discography & Releases</h4>
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-system">
                             <img src="system.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=SYSTEM'">
                             <div class="mini-title">SYSTEM</div>
                             <div class="mini-meta">Album // 2024</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-zien-gpt">
+                            <img src="zien.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=Z!EN+GPT'">
+                            <div class="mini-title">Z!EN GPT</div>
+                            <div class="mini-meta">EP // 2025</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-tdmn">
+                            <img src="zien.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=TDMN'">
+                            <div class="mini-title">TDMN</div>
+                            <div class="mini-meta">Single // 2026</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-kolo-bhwaya">
+                            <img src="zien.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=KOLO+BHWAYA'">
+                            <div class="mini-title">KOLO BHWAYA</div>
+                            <div class="mini-meta">Single // 2026</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-satty">
+                            <img src="zien.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=SATTY'">
+                            <div class="mini-title">SATTY</div>
+                            <div class="mini-meta">Single // 2026</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-gabolna-hkoma">
+                            <img src="zien.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=GABOLNA+HKOMA'">
+                            <div class="mini-title">GABOLNA HKOMA</div>
+                            <div class="mini-meta">ft. Ziad Zaza</div>
                         </div>
                         <div class="mini-release-item btn-open-modal" data-target="modal-4l">
                             <img src="4l.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=4L'">
@@ -774,13 +893,38 @@
                     
                     <p>The sonic architect behind the collective. <strong>NMS 4L</strong> is responsible for fully producing some of the most intricate and heavy audio experiences to come out of the roster. Blending elements of trap, rage, and left-field hip-hop, NMS provides the definitive soundscape that makes 4L stand out.</p>
 
-                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Production Credits</h4>
+                    <h4 style="margin-top: 30px; font-size: 1.2rem; text-transform: uppercase; color: var(--highlight);">Production & Releases</h4>
                     
                     <div class="mini-releases-grid">
                         <div class="mini-release-item btn-open-modal" data-target="modal-jester">
                             <img src="jester.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=JESTER'">
                             <div class="mini-title">JESTER (EP)</div>
-                            <div class="mini-meta">Prod. NMS 4L</div>
+                            <div class="mini-meta">Full Production</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-saeeb">
+                            <img src="nms.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=صعيب'">
+                            <div class="mini-title">صعيب</div>
+                            <div class="mini-meta">w/ ZEYAMAL</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-ya-habiby">
+                            <img src="nms.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=Ya+Habiby+T3Ali'">
+                            <div class="mini-title">Ya Habiby T3Ali</div>
+                            <div class="mini-meta">w/ DAPL M & Vito</div>
+                        </div>
+                        <div class="mini-release-item btn-open-modal" data-target="modal-acid">
+                            <img src="nms.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=Aci̇d'">
+                            <div class="mini-title">Aci̇d</div>
+                            <div class="mini-meta">Single // 2026</div>
+                        </div>
+                        <div class="mini-release-item">
+                            <img src="system.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=WAD3+TYARA'">
+                            <div class="mini-title">WAD3 TYARA</div>
+                            <div class="mini-meta">Upcoming</div>
+                        </div>
+                        <div class="mini-release-item">
+                            <img src="4l.jpg?v=2" class="mini-cover" onerror="this.src='https://via.placeholder.com/200x200/222/555?text=1000+LA+BA2S'">
+                            <div class="mini-title">1000 LA BA2S</div>
+                            <div class="mini-meta">Upcoming</div>
                         </div>
                     </div>
 
@@ -793,58 +937,43 @@
     <!-- LEVEL 2 MODALS (TRACKLISTS & RELEASES)     -->
     <!-- ========================================== -->
 
-    <!-- Nested Release Modal: JESTER -->
+    <!-- JESTER MODAL -->
     <div id="modal-jester" class="modal release-modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="jester.jpg?v=2" alt="JESTER Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+JESTER+ARTWORK+]'">
+                <img src="jester.jpg?v=2" alt="JESTER Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+JESTER+]'">
                 <div class="modal-text-content">
                     <h3>JESTER</h3>
                     <div class="modal-sub">TAQI // EP // 2026</div>
-                    <p>An intricate audio experience helmed entirely by <strong>TAQI</strong> and fully produced by <strong>NMS 4L</strong>. The JESTER EP takes a deep dive into experimental boundaries, showcasing razor-sharp verses and heavy, hypnotic production from front to back.</p>
+                    <p>An intricate audio experience helmed entirely by <strong>TAQI</strong> and fully produced by <strong>NMS 4L</strong>. The JESTER EP takes a deep dive into experimental boundaries, showcasing razor-sharp verses and heavy, hypnotic production.</p>
                     
                     <a href="https://open.spotify.com/album/4qRByEGL79ta7zVMvRvkqL" target="_blank" class="listen-link">Listen on Spotify</a>
 
                     <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Tracklist</h4>
                     
                     <div class="tracklist">
-                        <div class="track">
-                            <div class="track-title">1. MZH24 MN L NSWAN</div>
-                            <div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div>
-                        </div>
-                        <div class="track">
-                            <div class="track-title">2. KO$yAGY</div>
-                            <div class="track-details">Artist: TAQI (feat. ZEYAMAL) | Prod: NMS 4L | Released: 2026</div>
-                        </div>
-                        <div class="track">
-                            <div class="track-title">3. HAHA (ENSENI)</div>
-                            <div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div>
-                        </div>
-                        <div class="track">
-                            <div class="track-title">4. JESTER</div>
-                            <div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div>
-                        </div>
-                        <div class="track">
-                            <div class="track-title">5. BIPOLAR</div>
-                            <div class="track-details">Artist: TAQI | Prod: NMS 4L | Released: 2026</div>
-                        </div>
+                        <div class="track"><div class="track-title">1. MZH24 MN L NSWAN</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | 2026</div></div>
+                        <div class="track"><div class="track-title">2. KO$yAGY</div><div class="track-details">Artist: TAQI (feat. ZEYAMAL) | Prod: NMS 4L | 2026</div></div>
+                        <div class="track"><div class="track-title">3. HAHA (ENSENI)</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | 2026</div></div>
+                        <div class="track"><div class="track-title">4. JESTER</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | 2026</div></div>
+                        <div class="track"><div class="track-title">5. BIPOLAR</div><div class="track-details">Artist: TAQI | Prod: NMS 4L | 2026</div></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Nested Release Modal: SYSTEM -->
+    <!-- SYSTEM MODAL -->
     <div id="modal-system" class="modal release-modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="system.jpg?v=2" alt="SYSTEM Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+SYSTEM+ARTWORK+]'">
+                <img src="system.jpg?v=2" alt="SYSTEM Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+SYSTEM+]'">
                 <div class="modal-text-content">
                     <h3>SYSTEM</h3>
                     <div class="modal-sub">ZIEN4L // Debut Album // 2024</div>
-                    <p><strong>SYSTEM</strong> is the highly anticipated debut album by <strong>ZIEN4L</strong>. Moving away from the collective umbrella to establish his own distinct artistic universe, ZIEN4L pieces together intense vocal performances with intricate, hard-hitting production.</p>
+                    <p><strong>SYSTEM</strong> is the debut album by <strong>ZIEN4L</strong>. Establishing his distinct artistic universe with intense vocal performances and hard-hitting production.</p>
                     
                     <a href="https://open.spotify.com/album/374cEnOKQlAZizJJbK07PF" target="_blank" class="listen-link">Listen on Spotify</a>
 
@@ -866,24 +995,299 @@
         </div>
     </div>
 
-    <!-- Nested Release Modal: 4L SINGLE -->
+    <!-- 4L MODAL -->
     <div id="modal-4l" class="modal release-modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="modal-grid">
-                <img src="4l.jpg?v=2" alt="4L Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+4L+ARTWORK+]'">
+                <img src="4l.jpg?v=2" alt="4L Cover Art" class="modal-img" onerror="this.src='https://via.placeholder.com/500x500/111/555?text=[+4L+]'">
                 <div class="modal-text-content">
                     <h3>4L</h3>
-                    <div class="modal-sub">TAQI (feat. ZIEN4L) // 2023</div>
-                    <p>“4L” by TAQI (feat. ZIEN4L) is a statement of loyalty, ambition, and identity. The title, “4L” (“For Life”), represents an unbreakable commitment to the crew and the lifestyle they’ve built together.</p>
+                    <div class="modal-sub">TAQI (feat. ZIEN4L) // Single // 2023</div>
+                    <p>“4L” by TAQI (feat. ZIEN4L) is a statement of loyalty, ambition, and identity. The title, “4L” (“For Life”), represents an unbreakable commitment to the collective.</p>
                     
-                    <a href="https://open.spotify.com/album/4qRByEGL79ta7zVMvRvkqL" target="_blank" class="listen-link">Listen on Spotify</a>
+                    <a href="https://open.spotify.com/artist/5PjPBaWHLsH0ysM1bOgnuR" target="_blank" class="listen-link">Listen on Spotify</a>
                     
                     <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
                     <div class="tracklist">
                         <div class="track">
                             <div class="track-title">4L</div>
                             <div class="track-details">TAQI (feat. ZIEN4L) | Released: 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEN AMWALY MODAL -->
+    <div id="modal-fen-amwaly" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="taqi.jpg?v=2" alt="FEN AMWALY" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>FEN AMWALY</h3>
+                    <div class="modal-sub">ZIEN4L, Le zuz, TAQI // Single</div>
+                    <p>A powerhouse collaboration combining intense lyricism, experimental percussion, and relentless delivery.</p>
+                    
+                    <a href="https://open.spotify.com/artist/5PjPBaWHLsH0ysM1bOgnuR" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">FEN AMWALY</div>
+                            <div class="track-details">ZIEN4L x Le zuz x TAQI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAH MODAL -->
+    <div id="modal-nah" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="taqi.jpg?v=2" alt="NAH" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>NAH</h3>
+                    <div class="modal-sub">TAQI // Single</div>
+                    <p>Hard-hitting standalone track by TAQI showcasing sharp flows and distinct sonic presence.</p>
+                    
+                    <a href="https://open.spotify.com/artist/5PjPBaWHLsH0ysM1bOgnuR" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">NAH</div>
+                            <div class="track-details">Artist: TAQI | Single</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GABI MODAL -->
+    <div id="modal-gabi" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="taqi.jpg?v=2" alt="GABI" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>GABI</h3>
+                    <div class="modal-sub">TAQI // Single</div>
+                    <p>High-octane underground energy driven by TAQI’s signature rhythmic pocket and experimental hip-hop style.</p>
+                    
+                    <a href="https://open.spotify.com/artist/5PjPBaWHLsH0ysM1bOgnuR" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">GABI</div>
+                            <div class="track-details">Artist: TAQI | Single</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Z!EN GPT MODAL -->
+    <div id="modal-zien-gpt" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="zien.jpg?v=2" alt="Z!EN GPT" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>Z!EN GPT</h3>
+                    <div class="modal-sub">ZIEN4L // EP // 2025</div>
+                    <p>Futuristic concept project delving into synthetic soundscapes, razor-sharp cadence, and cybernetic flows.</p>
+                    
+                    <a href="https://open.spotify.com/artist/3OluQc7zjf5nKVsdlYYKzD" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">Z!EN GPT (EP)</div>
+                            <div class="track-details">Artist: ZIEN4L | 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TDMN MODAL -->
+    <div id="modal-tdmn" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="zien.jpg?v=2" alt="TDMN" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>TDMN</h3>
+                    <div class="modal-sub">ZIEN4L // Single // 2026</div>
+                    <p>A dark, atmospheric, bass-heavy record marking ZIEN4L’s sonic expansion in 2026.</p>
+                    
+                    <a href="https://open.spotify.com/artist/3OluQc7zjf5nKVsdlYYKzD" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">TDMN</div>
+                            <div class="track-details">Artist: ZIEN4L | Released: 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KOLO BHWAYA MODAL -->
+    <div id="modal-kolo-bhwaya" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="zien.jpg?v=2" alt="KOLO BHWAYA" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>KOLO BHWAYA</h3>
+                    <div class="modal-sub">ZIEN4L // Single // 2026</div>
+                    <p>Hypnotic hooks combined with relentless tempo, emphasizing ZIEN4L’s signature raw aggression.</p>
+                    
+                    <a href="https://open.spotify.com/artist/3OluQc7zjf5nKVsdlYYKzD" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">KOLO BHWAYA</div>
+                            <div class="track-details">Artist: ZIEN4L | Released: 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SATTY MODAL -->
+    <div id="modal-satty" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="zien.jpg?v=2" alt="SATTY" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>SATTY</h3>
+                    <div class="modal-sub">ZIEN4L // Single // 2026</div>
+                    <p>Heavy synth leads and distinctive trap cadence defining the Egyptian underground scene.</p>
+                    
+                    <a href="https://open.spotify.com/artist/3OluQc7zjf5nKVsdlYYKzD" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">SATTY</div>
+                            <div class="track-details">Artist: ZIEN4L | Released: 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GABOLNA HKOMA MODAL -->
+    <div id="modal-gabolna-hkoma" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="zien.jpg?v=2" alt="GABOLNA HKOMA" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>GABOLNA HKOMA</h3>
+                    <div class="modal-sub">ZIAD ZAZA, ZIEN4L, 5mstashr // Single // 2024</div>
+                    <p>A landmark drill/rage crossover with ZIAD ZAZA and 5mstashr that cemented underground hype across the region.</p>
+                    
+                    <a href="https://open.spotify.com/artist/3OluQc7zjf5nKVsdlYYKzD" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">GABOLNA HKOMA</div>
+                            <div class="track-details">ZIAD ZAZA x ZIEN4L x 5mstashr | Released: 2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAEEB MODAL -->
+    <div id="modal-saeeb" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="nms.jpg?v=2" alt="صعيب" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>صعيب</h3>
+                    <div class="modal-sub">NMS 4L & ZEYAMAL // Single // 2026</div>
+                    <p>A distinct, hard-edged production by NMS 4L featuring ZEYAMAL's signature melodic grit.</p>
+                    
+                    <a href="https://open.spotify.com/artist/4lUoTDvMn7gTkeeN0G9zYX" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">صعيب</div>
+                            <div class="track-details">NMS 4L & ZEYAMAL | Released: 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YA HABIBY T3ALI MODAL -->
+    <div id="modal-ya-habiby" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="nms.jpg?v=2" alt="Ya Habiby T3Ali" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>Ya Habiby T3Ali</h3>
+                    <div class="modal-sub">DAPL M, Vito, NMS 4L // Single // 2026</div>
+                    <p>Energetic anthem produced by NMS 4L bridging distinct vocalists over sharp, hypnotic percussion.</p>
+                    
+                    <a href="https://open.spotify.com/artist/4lUoTDvMn7gTkeeN0G9zYX" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">Ya Habiby T3Ali</div>
+                            <div class="track-details">DAPL M x Vito x NMS 4L | Released: 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACID MODAL -->
+    <div id="modal-acid" class="modal release-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-grid">
+                <img src="nms.jpg?v=2" alt="Aci̇d" class="modal-img">
+                <div class="modal-text-content">
+                    <h3>Aci̇d</h3>
+                    <div class="modal-sub">NMS 4L // Single // 2026</div>
+                    <p>Left-field instrumental journey featuring distorted textures and heavyweight trap 808s by sonic architect NMS 4L.</p>
+                    
+                    <a href="https://open.spotify.com/artist/4lUoTDvMn7gTkeeN0G9zYX" target="_blank" class="listen-link">Listen on Spotify</a>
+                    
+                    <h4 style="margin-top: 30px; font-size: 1.5rem; text-transform: uppercase; color: var(--highlight);">Details</h4>
+                    <div class="tracklist">
+                        <div class="track">
+                            <div class="track-title">Aci̇d</div>
+                            <div class="track-details">Prod: NMS 4L | Released: 2026</div>
                         </div>
                     </div>
                 </div>
@@ -925,12 +1329,12 @@
         &copy; 2026 <a href="https://www.instagram.com/4larchivezz?igsh=ZmZ6b3RzZ3U3MXc0" target="_blank">4Larchivezz</a>. 4L Records. All rights reserved.
     </footer>
 
-    <!-- JavaScript for Modals -->
+    <!-- JavaScript for Modals & Scroll-To-Top -->
     <script>
+        // Modal Logic
         const openBtns = document.querySelectorAll('.btn-open-modal');
         const closeBtns = document.querySelectorAll('.close-btn');
 
-        // Open Modal
         openBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -944,7 +1348,6 @@
             });
         });
 
-        // Close specific Modal
         closeBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
@@ -957,7 +1360,6 @@
             });
         });
 
-        // Close Modal by clicking outside of the content box
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 e.target.classList.remove('show');
@@ -965,6 +1367,24 @@
                     document.body.style.overflow = 'auto';
                 }
             }
+        });
+
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 
